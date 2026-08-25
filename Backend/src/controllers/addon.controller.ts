@@ -74,3 +74,49 @@ export const installAddon = async (
       .json({ error: error.message || "Failed to install addon" });
   }
 };
+
+export const uploadCustomAddon = async (
+  req: Request,
+  res: Response,
+): Promise<any> => {
+  const { containerId } = req.params;
+  const { serverId, addonType } = req.body; // e.g., 'plugin', 'mod', 'datapack'
+  const uploadedFile = req.file; // Provided by Multer middleware
+
+  if (!uploadedFile) {
+    return res.status(400).json({ error: "No file uploaded." });
+  }
+
+  if (!serverId || !addonType) {
+    return res
+      .status(400)
+      .json({ error: "serverId and addonType are required." });
+  }
+
+  try {
+    const fileName = uploadedFile.originalname;
+
+    // Ensure it's a valid extension (e.g., .jar for plugins/mods, .zip for datapacks)
+    if (!fileName.endsWith(".jar") && !fileName.endsWith(".zip")) {
+      return res
+        .status(400)
+        .json({ error: "Only .jar and .zip files are allowed." });
+    }
+
+    await addonService.installCustomUpload(
+      serverId,
+      uploadedFile.path,
+      fileName,
+      addonType,
+    );
+
+    return res.json({
+      message: `Successfully uploaded and installed ${fileName}!`,
+      file: fileName,
+    });
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json({ error: error.message || "Failed to upload custom addon" });
+  }
+};

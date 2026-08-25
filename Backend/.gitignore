@@ -1,0 +1,72 @@
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and package-manager files
+node_modules/
+.pnp/
+.pnp.js
+.npm/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+bun.lockb
+bun.lock
+.bun/
+
+# Keep package manager lockfiles for other tools if needed
+pnpm-lock.yaml
+
+# Build and coverage output
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+.cache/
+.turbo/
+
+# Logs and runtime data
+*.log
+logs/
+tmp/
+temp/
+data/
+backups/
+
+# Minecraft server files generated at runtime
+eula.txt
+server.properties
+*.jar
+world/
+world_nether/
+world_the_end/
+crash-reports/
+usercache.json
+whitelist.json
+ops.json
+banned-players.json
+banned-ips.json
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Java/Gradle artifacts
+.gradle/
+target/
+*.class
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
