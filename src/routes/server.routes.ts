@@ -1,8 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 import fs from "fs-extra";
-import { FileManagerController } from "../controllers/FileManager.controller.js";
-import { BackupController } from "../controllers/Backup.controller.js";
+import { FileManagerController } from "../controllers/fileManager.controller.js";
+import { BackupController } from "../controllers/backup.controller.js";
 import { FileManagerService } from "../services/FileManagerService.js";
 import { installAddon } from "../controllers/addon.controller.js";
 import {
