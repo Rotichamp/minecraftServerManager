@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ─────────────────────────────────────────────── */
+:root {
+  --c-bg: 11 14 20; /* #0B0E14 */
+  --c-surface: 17 21 31; /* #11151F */
+  --c-surface2: 23 28 41; /* #171C29 */
+  --c-ink: 230 234 242; /* #E6EAF2 */
+  --c-muted: 138 148 166; /* #8A94A6 */
+  --c-accent: 52 211 153; /* #34D399 emerald */
+  --c-danger: 248 113 113; /* #F87171 */
+  --c-warn: 251 191 36; /* #FBBF24 */
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+  }
+
+  ::selection {
+    background: rgb(var(--c-accent) / 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent) / 0.7);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Signature element — whisper-quiet pixel grid backdrop */
+  .pixel-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .card {
+    @apply rounded-xl border border-white/[0.06] bg-surface shadow-card;
+  }
+
+  .card-hover {
+    @apply transition-[transform,box-shadow] duration-200 ease-out;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.3),
+      0 12px 32px rgb(0 0 0 / 0.35);
+  }
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-lg font-medium transition-all duration-150 ease-out active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-accent px-4 py-2 text-sm font-semibold text-bg hover:brightness-110;
+  }
+  .btn-secondary {
+    @apply btn border border-white/10 bg-surface2 px-4 py-2 text-sm text-ink hover:border-white/20 hover:bg-surface2/80;
+  }
+  .btn-danger {
+    @apply btn bg-danger/15 px-4 py-2 text-sm font-medium text-danger ring-1 ring-inset ring-danger/30 hover:bg-danger/25;
+  }
+  .btn-ghost {
+    @apply btn px-3 py-1.5 text-sm text-muted hover:bg-white/5 hover:text-ink;
+  }
+  .btn-icon {
+    @apply btn h-8 w-8 rounded-md text-muted hover:bg-white/5 hover:text-ink;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-white/10 bg-surface2 px-3 py-2 text-sm text-ink placeholder:text-muted/60 transition-colors duration-150 focus:border-accent/50 focus:outline-none focus:ring-0;
+  }
+
+  .chip {
+    @apply inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-muted transition-all duration-150 hover:bg-white/5 hover:text-ink;
+  }
+  .chip-active {
+    @apply bg-accent/10 text-accent ring-1 ring-inset ring-accent/30;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[11px] font-medium;
+  }
+}
+
+@layer utilities {
+  /* Thin dark scrollbars (console, file lists) */
+  .scroll-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.08);
+    border-radius: 9999px;
+  }
+  .scroll-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 16px rgb(var(--c-accent) / 0.45);
+  }
+}
+
+/* ── Reduced motion: honor user preference everywhere ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
